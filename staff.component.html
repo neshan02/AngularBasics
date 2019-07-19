@@ -1,0 +1,89 @@
+<div class = "container">
+  <div [hidden] = "submitted">
+    <h1>Staff Login</h1>
+    <form (ngSubmit) = "onSubmit()" #staff="ngForm">
+      
+      <div class="form-group">
+        <label for="name"> Name </label>
+        <input type="text" class="form-control" placeholder="Enter your name" id="name" required [(ngModel)]="model.name" name="name" #name="ngModel" #spy>
+            <div [hidden]="name.valid || name.pristine" class="alert alert-danger">Name is required</div>
+            <!-- {{spy.className}} -->
+      </div>
+
+        <div class="form-group">
+            <label for="dest">  Designation </label>
+            <input type="text" class="form-control" placeholder="Enter your designation(optional)" id="dest" [(ngModel)]="model.dest" name="dest">
+        </div>
+
+        <div class="form-group">
+            <label for="clgs"> College </label>
+            
+            <select class="form-control" id="clgs"  required  [(ngModel)]="model.clgs" name="clgs" #clgs="ngModel">
+              <option hidden [value]="undefined"  selected> Select your college </option>
+              <option *ngFor="let cl of clg" [value]="cl">{{cl}}</option>
+            </select>
+        
+            <div [hidden]="clgs.valid || clgs.pristine" class="alter alter-danger"></div>  
+        </div>     
+        
+        <div class="form-group">
+            <label for="gender"> Gender </label>
+
+            <div class="form-control" >
+                <label class="radio-inline">
+                  <input type="radio" value="Male" name="gen" required [(ngModel)]="model.gen">Male
+                </label>
+
+                <label class="radio-inline">
+                    <input type="radio" value="Female" name="gen" [(ngModel)]="model.gen">Female
+                  </label>
+            </div>
+        </div>
+          
+        <div>
+        <label class="checkbox-inline">
+            <input type="checkbox"  name="check" required [(ngModel)]="check">Above details are true
+          </label>
+        </div>  
+<br>
+        <button type="submit" class="btn btn-success" [disabled]="!staff.form.valid"> Registering </button>
+
+        <button type="button" class="btn btn-default" (click)="staff.reset()">Reset</button>
+
+
+
+    </form>
+  </div>
+</div>
+
+
+<div class = "container" [hidden]="!submitted">
+        
+  <h1>Your submitting following:</h1>
+        
+        <div class="row">
+          <div class="col-xs-3">Name</div>
+          <div class="col-xs-9">{{ model.name }}</div>
+        </div>
+        
+        <div class="row">
+          <div class="col-xs-3">College</div>
+          <div class="col-xs-9">{{ model.clgs }}</div>
+        </div>
+        
+        <div class="row">
+          <div class="col-xs-3">Gender</div>
+          <div class="col-xs-9">{{model.gen}}</div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-3">Designation</div>
+            <div class="col-xs-9">{{ model.dest}}</div>
+        </div>
+
+        <br>
+
+      
+        <button class="btn btn-primary" (click)="submitted=false">Edit</button>
+        <app-page></app-page>
+</div>
